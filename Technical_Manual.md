@@ -87,11 +87,24 @@ merge_map_launch = ExecuteProcess(
 )
 ```
 
-### Function
+## Overview
 
-* Launches map merging process
-* Subscribes to /tbX/map
-* Publishes /merge_map
+Merges occupancy grids from multiple robots into a single global map.
+
+### Parameters
+
+* frame_id (default: merge_map)
+* robot_count (default: 3)
+
+### Subscribed Topics
+
+* /tb1/map
+* /tb2/map
+* ...
+
+### Published Topics
+
+* /merge_map
 
 ---
 
@@ -105,6 +118,22 @@ control_node = ExecuteProcess(
   output='screen'
 )
 ```
+
+## Overview
+
+Implements frontier-based autonomous exploration for multiple robots.
+
+#### HeadquartersControl Node
+
+Subscribers:
+
+* /merge_map (OccupancyGrid)
+* /tbX/odom (Odometry)
+* /tbX/cmd_vel (Twist)
+
+Action Clients:
+
+* /tbX/navigate_to_pose
 
 ### Function
 
@@ -201,56 +230,8 @@ online_async_multirobot_launch.py
 
 ---
 
-# 10. Launch File Architecture
 
-## Imports and Setup
-
-* ament_index_python
-* launch
-* launch_ros.actions
-* launch.event_handlers
-* launch.conditions
-
-These provide:
-
-* Package path resolution
-* Node execution
-* Conditional launch logic
-* Event-based sequencing
-
----
-
-# 11. generate_launch_description() Flow
-
-## Robot Configuration
-
-* robots list defines all robot entities
-
-## Launch Arguments
-
-* robot_count
-* use_sim_time
-* enable_drive
-* enable_rviz
-
-## Gazebo Setup
-
-* gzserver_cmd (Gazebo server)
-* gzclient_cmd (Gazebo client)
-
-## Per-Robot Nodes
-
-For each robot:
-
-* robot_state_publisher
-* joint_state_publisher_node
-* spawn_robot
-* bringup_cmd (Nav2)
-* slam_toolbox_node
-
----
-
-# 12. Event Handling and Sequential Startup
+# 10. Event Handling and Sequential Startup
 
 Uses RegisterEventHandler and OnProcessExit to:
 
@@ -269,7 +250,7 @@ RegisterEventHandler(
 
 ---
 
-# 13. Namespacing and TF Remapping
+# 11. Namespacing and TF Remapping
 
 ## Namespacing
 
@@ -294,87 +275,8 @@ Prevents TF collisions in multi-robot systems.
 
 ---
 
-# 14. Control Node — multi_robot_exploration
 
-## Overview
-
-Implements frontier-based autonomous exploration for multiple robots.
-
-### Features
-
-* Dynamic multi-robot handling
-* Frontier detection and grouping
-* Goal assignment
-* NavigateToPose action usage
-* Exploration completion detection
-* Automatic merged map saving
-
-### Core Components
-
-#### Frontier Detection
-
-* frontierB(matrix)
-* assign_groups(matrix)
-* fGroups(groups)
-
-#### Target Selection
-
-* findClosestGroup()
-* exploration()
-
-#### HeadquartersControl Node
-
-Subscribers:
-
-* /merge_map (OccupancyGrid)
-* /tbX/odom (Odometry)
-* /tbX/cmd_vel (Twist)
-
-Action Clients:
-
-* /tbX/navigate_to_pose
-
-Key Methods:
-
-* map_callback()
-* robot_odom_callback()
-* send_goal()
-* goal_result_callback()
-* check_exploration_completion()
-* save_map()
-
----
-
-# 15. Merge Map Node — merge_map
-
-## Overview
-
-Merges occupancy grids from multiple robots into a single global map.
-
-### Parameters
-
-* frame_id (default: merge_map)
-* robot_count (default: 3)
-
-### Subscribed Topics
-
-* /tb1/map
-* /tb2/map
-* ...
-
-### Published Topics
-
-* /merge_map
-
-### Core Functions
-
-* merge_maps()
-* map_callback()
-* try_merge_and_publish()
-
----
-
-# 16. LaunchDescription Actions Summary
+# 12. LaunchDescription Actions Summary
 
 Key actions added to LaunchDescription:
 
@@ -397,7 +299,7 @@ ld.add_action(slam_toolbox_node)
 
 ---
 
-# 17. Offline Map Merging
+# Offline Map Merging
 
 ## Additional feature - Offline Map Merging
 
@@ -444,7 +346,7 @@ ros2_humble/multi_robot_autonomous/src/merge_map/launch/offline_merge_map_launch
 
 ---
 
-# 18. Multi-Robot Navigation with Pre-built Map
+# Multi-Robot Navigation with Pre-built Map
 
 ## Overview
 
