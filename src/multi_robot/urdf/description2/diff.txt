@@ -1,0 +1,49 @@
+6,9c6
+< <robot name="robot1">
+<   <material name="red">
+<     <color rgba="1 0 0 1"/>
+<   </material>
+---
+> <robot name="multi_robot">
+15c12
+<     <origin rpy="0 0 0" xyz="0.1 0 0.06"/>
+---
+>     <origin rpy="0 0 0" xyz="0.087 0 0.075"/>
+32c29
+<       <inertia ixx="2.9999999999999997e-05" ixy="0.0" ixz="0.0" iyy="2.9999999999999997e-05" iyz="0.0" izz="4.5e-05"/>
+---
+>       <inertia ixx="7.583333333333335e-05" ixy="0.0" ixz="0.0" iyy="7.583333333333335e-05" iyz="0.0" izz="0.00012500000000000003"/>
+41c38
+<       <update_rate>5</update_rate>
+---
+>       <update_rate>10</update_rate>
+46d42
+<             <!-- <resolution>1.000000</resolution> -->
+54c50
+<           <min>0.4</min>
+---
+>           <min>0.35</min>
+80c76
+<     <origin rpy="0 0 0" xyz="0.15 0 0.03"/>
+---
+>     <origin rpy="0 0 0" xyz="0.15 0 0.003"/>
+220c216
+<   <!-- xacro:include filename="$(find multi_bot_04)/description/xacro/depth_camera.xacro" / -->
+---
+>   <!-- xacro:include filename="$(find multi_robot)/description/xacro/depth_camera.xacro" / -->
+236c232
+<       <!-- <odometry_source>world</odometry_source> -->
+---
+>       <!-- odometry_source>world</odometry_source -->
+248c244
+<         <remapping>/tf_static:=/robot1/tf_static</remapping>
+---
+>                 <remapping>/tf_static:=/robot1/tf_static</remapping>
+259c255
+<       <update_rate>30</update_rate>
+---
+>       <update_rate>30.0</update_rate>
+284a281,283
+>   </material>
+>   <material name="red">
+>     <color rgba="1 0 0 1"/>

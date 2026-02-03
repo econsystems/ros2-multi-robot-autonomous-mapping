@@ -1,0 +1,22 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" name="multi_bot_04">
+    <material name="red">
+        <color rgba="1 0 0 1"/>
+    </material>
+    
+    <xacro:arg name="robot_name" default=""/>
+    <xacro:arg name="namespace" default=""/>
+        
+    <xacro:arg name="robot_material_name" default="Green"/>
+    <xacro:arg name="robot_material_color_rgb" default="0 1 0 1"/>
+
+    <xacro:include filename="$(find multi_robot)/urdf/description/xacro/inertial_macros.xacro" />
+    <xacro:include filename="$(find multi_robot)/urdf/description/xacro/lidar.xacro" />
+    <xacro:include filename="$(find multi_robot)/urdf/description/xacro/camera.xacro" />
+    <xacro:include filename="$(find multi_robot)/urdf/description/xacro/imu_sensor.xacro" />
+    
+    <!-- xacro:include filename="$(find multi_bot_04)/description/xacro/depth_camera.xacro" / -->
+
+    <xacro:include filename="$(find multi_robot)/urdf/description/xacro/gazebo_control.xacro" />
+    <xacro:include filename="$(find multi_robot)/urdf/description/xacro/robot_core.xacro" />
+</robot>

@@ -1,0 +1,65 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro" >
+
+    <link name="depth_camera_link">
+        <visual>
+            <geometry>
+                <box size="0.010 0.03 0.03"/>
+            </geometry>
+            <material name="blue"/>
+        </visual>
+    </link>
+
+    <joint name="depth_camera_joint" type="fixed">
+        <parent link="base_link"/>
+        <child link="depth_camera_link"/>
+        <origin xyz="0.305 0 0.030" rpy="0 0 0"/>
+    </joint>
+
+    <joint name="depth_camera_optical_joint" type="fixed">
+        <origin xyz="0 0 0" rpy="${-pi/2} 0 ${-pi/2}" />
+        <parent link="depth_camera_link" />
+        <child link="depth_camera_link_optical" />
+    </joint>
+
+    <link name="depth_camera_link_optical"></link>
+
+    <gazebo reference="depth_camera_link">
+        <material>Gazebo/Blue</material>
+        <sensor name="depth_camera" type="depth">
+            <pose> 0 0 0 0 0 0 </pose>
+            <visualize>true</visualize>
+            <update_rate>10</update_rate>
+            <camera name="depth_camera">
+                <horizontal_fov>1.047198</horizontal_fov>
+                <image>
+                    <format>R8G8B8</format>
+                    <width>640</width>
+                    <height>480</height>
+                </image>
+                <clip>
+                    <near>0.05</near>
+                    <far>8.0</far>
+                </clip>
+            </camera>
+            <plugin name="depth_camera_controller" filename="libgazebo_ros_camera.so">
+                <frame_name>depth_camera_link_optical</frame_name>
+                <baseline>0.2</baseline>
+                <alwaysOn>true</alwaysOn>
+                <updateRate>0.0</updateRate>
+                <pointCloudCutoff>0.5</pointCloudCutoff>
+                <pointCloudCutoffMax>8.0</pointCloudCutoffMax>
+                <distortionK1>0</distortionK1>
+                <distortionK2>0</distortionK2>
+                <distortionK3>0</distortionK3>
+                <distortionT1>0</distortionT1>
+                <distortionT2>0</distortionT2>
+                <CxPrime>0</CxPrime>
+                <Cx>0</Cx>
+                <Cy>0</Cy>
+                <focalLength>0</focalLength>
+                <hackBaseline>0</hackBaseline>
+            </plugin>
+        </sensor>        
+    </gazebo>
+</robot>

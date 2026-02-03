@@ -1,0 +1,7 @@
+image: new_keepout.pgm
+mode: scale
+resolution: 0.05
+origin: [0.00, 0.00, 0.0]
+negate: 0
+free_thresh: 0.1
+occupied_thresh: 1.0

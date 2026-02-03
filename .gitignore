@@ -1,0 +1,7 @@
+# ROS 2 build artifacts
+build/
+install/
+log/
+
+# IDE / editor settings
+.vscode/

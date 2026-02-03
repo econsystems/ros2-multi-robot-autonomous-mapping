@@ -1,0 +1,8 @@
+slam_toolbox:
+  use_sim_time: true  # For simulation
+  map_file_name: map
+  resolution: 0.05  # Map resolution in meters
+  publish_map_topic: true
+  publish_pose_topic: true
+  max_laser_range: 10.0  # Adjust based on your sensor range
+  minimum_time_interval: 1.0

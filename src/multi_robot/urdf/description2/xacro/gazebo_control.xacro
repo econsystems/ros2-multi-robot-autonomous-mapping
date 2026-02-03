@@ -1,0 +1,69 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+    <gazebo>
+        <plugin name="diff_drive" filename="libgazebo_ros_diff_drive.so">
+            <!-- wheels -->
+            <num_wheel_pairs>2</num_wheel_pairs>
+            <left_joint>$(arg robot_name)base_link_left_wheel_frontside</left_joint>
+            <left_joint>$(arg robot_name)base_link_left_wheel_backside</left_joint>
+            <right_joint>$(arg robot_name)base_link_right_wheel_frontside</right_joint>
+            <right_joint>$(arg robot_name)base_link_right_wheel_backside</right_joint>
+
+            <!-- kinematics -->
+            <wheel_separation>0.25</wheel_separation>
+            <wheel_diameter>0.1</wheel_diameter>
+
+            <!-- Limits -->
+            <max_wheel_torque>20.0</max_wheel_torque>
+            <max_wheel_acceleration>1.0</max_wheel_acceleration>
+
+            <!-- Output -->
+            <!-- odometry_source>world</odometry_source -->
+            <!-- Odometry source, 0 for ENCODER, 1 for WORLD, defaults to WORLD -->
+            <odometry_source>1</odometry_source>
+                        
+            <!-- odometry_topic>$(arg namespace)/odom</odometry_topic -->
+            <odometry_frame>$(arg robot_name)odom</odometry_frame>
+            <robot_base_frame>$(arg robot_name)base_link</robot_base_frame>
+
+            <!-- topic & re remappings -->
+            <ros>
+                <remapping>/cmd_vel:=$(arg namespace)/cmd_vel</remapping>
+                <remapping>/odom:=$(arg namespace)/odom</remapping>
+
+                <namespace>$(arg namespace)</namespace>
+                <!-- <remapping>/tf:=$(arg namespace)/tf</remapping>
+                <remapping>/tf_static:=$(arg namespace)/tf_static</remapping> -->
+            </ros>
+
+            <!-- Receive velocity commands on this ROS topic -->
+            <!-- command_topic>cmd_vel</command_topic -->
+            <!-- Change the ROS topic we will publish the odometry data to -->
+            <!-- ros>
+                <remapping>odom:=wheel/odometry</remapping>
+            </ros -->            
+
+            <publish_odom>true</publish_odom>
+            <publish_odom_tf>true</publish_odom_tf>
+            <publish_wheel_tf>true</publish_wheel_tf>
+            
+            <update_rate>30</update_rate>
+
+        </plugin>
+
+        <!-- plugin name="basic_mobile_bot_joint_state" filename="libgazebo_ros_joint_state_publisher.so">
+            <ros>
+                <remapping>~/out:=joint_states</remapping>
+            </ros>
+            <update_rate>30</update_rate>
+
+            <num_wheel_pairs>2</num_wheel_pairs>
+            <left_joint>base_link_left_wheel_frontside</left_joint>
+            <left_joint>base_link_left_wheel_backside</left_joint>
+            <right_joint>base_link_right_wheel_frontside</right_joint>
+            <right_joint>base_link_right_wheel_backside</right_joint>
+        </plugin -->  
+    </gazebo>
+
+</robot>

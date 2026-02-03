@@ -1,0 +1,100 @@
+<?xml version="1.0"?>
+<robot xmlns:xacro="http://www.ros.org/wiki/xacro">
+
+<link name="$(arg robot_name)imu_link">
+
+  <visual>
+    <geometry>
+      <box size="0.1 0.1 0.1"/>
+    </geometry>
+  </visual>
+
+  <collision>
+    <geometry>
+      <box size="0.1 0.1 0.1"/>
+    </geometry>
+  </collision>
+
+  <xacro:inertial_box mass="0.0" x="0.0" y="0.0" z="0.0">
+    <origin xyz="0 0 0" rpy="0 0 0"/>
+  </xacro:inertial_box>
+
+</link>
+
+<joint name="$(arg robot_name)imu_joint" type="fixed">
+  <parent link="$(arg robot_name)base_link"/>
+  <child link="$(arg robot_name)imu_link"/>
+  <origin xyz="0. 0. 0.02"  rpy="0 0 0"/>
+</joint>
+
+  <gazebo reference="$(arg robot_name)imu_link">
+    <sensor name="imu_sensor" type="imu">
+      <plugin filename="libgazebo_ros_imu_sensor.so" name="imu_plugin">
+        <ros>
+          <namespace>$(arg namespace)/imu</namespace>
+          <remapping>~/out:=$(arg namespace)/imu</remapping>
+        </ros>
+        <initial_orientation_as_reference>false</initial_orientation_as_reference>
+        <frame_name>imu_link</frame_name>
+      </plugin>
+      <always_on>true</always_on>
+      <update_rate>100</update_rate>
+      <visualize>true</visualize>
+     <imu>
+     	<angular_velocity>
+     	  <x>
+     	    <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>2e-4</stddev>
+              <bias_mean>0.0000075</bias_mean>
+              <bias_stddev>0.0000008</bias_stddev>
+            </noise>
+          </z>
+        </angular_velocity>
+        <linear_acceleration>
+          <x>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </noise>
+          </x>
+          <y>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </noise>
+          </y>
+          <z>
+            <noise type="gaussian">
+              <mean>0.0</mean>
+              <stddev>1.7e-2</stddev>
+              <bias_mean>0.1</bias_mean>
+              <bias_stddev>0.001</bias_stddev>
+            </noise>
+          </z>
+        </linear_acceleration>
+      </imu>
+    </sensor>
+  </gazebo>
+
+</robot>
