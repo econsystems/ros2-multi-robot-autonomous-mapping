@@ -1,6 +1,6 @@
 # Multi-Robot Autonomous Mapping (ROS 2)
 
-This repository contains a complete ROS 2 workspace for **single and multi-robot autonomous mapping and navigation** using TurtleBot3, Nav2, and SLAM Toolbox. It supports multi-robot exploration, map merging, and autonomous navigation in Gazebo.
+This repository contains a complete ROS 2 workspace for **multi-robot autonomous mapping and navigation** using TurtleBot3, Nav2, and SLAM Toolbox. It supports multi-robot exploration, map merging, and autonomous navigation in Gazebo.
 
 ## 📁 Repository Structure
 
